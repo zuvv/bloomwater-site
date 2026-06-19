@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloomwater — Bath Bombs That Bloom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C2B2D;
+    --paper: #FAF7F2;
+    --clay: #D98C77;
+    --moss: #6E8C75;
+    --sand: #C9B79C;
+    --line: rgba(28,43,45,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(250,247,242,0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  header .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+  }
+  .wordmark {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  nav { display: flex; gap: 32px; font-size: 14px; font-weight: 500; }
+  nav a { opacity: 0.75; transition: opacity 0.2s; }
+  nav a:hover, nav a:focus-visible { opacity: 1; }
+  nav a:focus-visible { outline: 2px solid var(--clay); outline-offset: 4px; border-radius: 2px; }
+
+  .hero {
+    padding: 96px 0 64px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(40px, 5.4vw, 64px);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--clay);
+  }
+  .hero p.lede {
+    margin-top: 22px;
+    font-size: 18px;
+    max-width: 420px;
+    opacity: 0.78;
+  }
+  .hero .cta-row {
+    margin-top: 32px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .btn:hover { transform: translateY(-2px); background: #0f1818; }
+  .btn:focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; }
+  .hint { font-size: 13px; opacity: 0.55; }
+
+  .dissolve-stage {
+    position: relative;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .water {
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    background: linear-gradient(180deg, #EFEAE0 0%, #E5DFD2 100%);
+    overflow: hidden;
+  }
+  .ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    border: 2px solid var(--clay);
+    opacity: 0;
+    animation: bloom 4s ease-out infinite;
+  }
+  .ring.r2 { border-color: var(--moss); animation-delay: 1.3s; }
+  .ring.r3 { border-color: var(--sand); animation-delay: 2.6s; }
+  @keyframes bloom {
+    0%   { width: 40px; height: 40px; margin: -20px 0 0 -20px; opacity: 0.55; }
+    100% { width: 340px; height: 340px; margin: -170px 0 0 -170px; opacity: 0; }
+  }
+  .bomb {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, #f0a98f, var(--clay));
+    box-shadow: 0 8px 20px rgba(217,140,119,0.35);
+    animation: fizz 4s ease-in-out infinite;
+  }
+  @keyframes fizz {
+    0%, 18% { transform: scale(1); opacity: 1; }
+    55% { transform: scale(0.82); opacity: 0.85; }
+    78%, 100% { transform: scale(0.6); opacity: 0; }
+  }
+  .caption {
+    position: absolute;
+    bottom: 18px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.45;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 20px;
+  }
+  .section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 32px;
+  }
+  .section-head span {
+    font-size: 13px;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .products { padding: 80px 0; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 32px;
+    background: #fff;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(28,43,45,0.08);
+  }
+  .swatch {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    margin-bottom: 22px;
+  }
+  .card.c1 .swatch { background: radial-gradient(circle at 32% 30%, #8fae90, var(--moss)); }
+  .card.c2 .swatch { background: radial-gradient(circle at 32% 30%, #f0a98f, var(--clay)); }
+  .card.c3 .swatch { background: radial-gradient(circle at 32% 30%, #e8d2a8, var(--sand)); }
+  .card.c4 .swatch { background: radial-gradient(circle at 32% 30%, #6b7a8c, #3e4b56); }
+  .card .no {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    opacity: 0.45;
+    margin-bottom: 8px;
+  }
+  .card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .card p.scent {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-bottom: 14px;
+  }
+  .card p.desc {
+    font-size: 15px;
+    opacity: 0.78;
+  }
+  .price {
+    margin-top: 20px;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+  }
+
+  .about {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+  }
+  .about .wrap {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+  }
+  .about h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.15;
+  }
+  .about p {
+    font-size: 16px;
+    opacity: 0.78;
+    max-width: 480px;
+  }
+  .about p + p { margin-top: 16px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 36px 0;
+  }
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    opacity: 0.55;
+  }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; padding-top: 56px; }
+    .grid { grid-template-columns: 1fr; }
+    .about .wrap { grid-template-columns: 1fr; }
+    nav { gap: 18px; }
+    .dissolve-stage { height: 280px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="wordmark">Bloomwater</div>
+    <nav>
+      <a href="#products">Bombs</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap" style="display:grid; grid-template-columns: 1.1fr 1fr; gap:48px; align-items:center;">
+    <div>
+      <h1>Drop it in.<br>Watch it <em>bloom</em>.</h1>
+      <p class="lede">Four bath bombs, each built around one mood and one mineral soak. No glitter, no synthetic dye slick — just color, scent, and a slow fizz.</p>
+      <div class="cta-row">
+        <a class="btn" href="#products">See the four <span aria-hidden="true">→</span></a>
+        <span class="hint">Handmade in small batches</span>
+      </div>
+    </div>
+    <div class="dissolve-stage" aria-hidden="true">
+      <div class="water">
+        <div class="ring"></div>
+        <div class="ring r2"></div>
+        <div class="ring r3"></div>
+        <div class="caption">Quiet Moss — dissolving</div>
+      </div>
+      <div class="bomb"></div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The four</h2>
+      <span>One soak each</span>
+    </div>
+    <div class="grid">
+
+      <div class="card c1">
+        <div class="swatch"></div>
+        <div class="no">No. 01</div>
+        <h3>Quiet Moss</h3>
+        <p class="scent">Eucalyptus · green clay</p>
+        <p class="desc">A grounding soak for the end of a long day — eucalyptus opens things up, green clay settles them back down.</p>
+        <div class="price">$9</div>
+      </div>
+
+      <div class="card c2">
+        <div class="swatch"></div>
+        <div class="no">No. 02</div>
+        <h3>Citrus Drift</h3>
+        <p class="scent">Grapefruit · sweet orange</p>
+        <p class="desc">Bright and a little sharp. Built for mornings that need a reset, not a rest.</p>
+        <div class="price">$9</div>
+      </div>
+
+      <div class="card c3">
+        <div class="swatch"></div>
+        <div class="no">No. 03</div>
+        <h3>Velvet Rose</h3>
+        <p class="scent">Rose · shea butter</p>
+        <p class="desc">Soft and a little indulgent. Shea butter leaves the water — and you — visibly softer.</p>
+        <div class="price">$10</div>
+      </div>
+
+      <div class="card c4">
+        <div class="swatch"></div>
+        <div class="no">No. 04</div>
+        <h3>Midnight Salt</h3>
+        <p class="scent">Lavender · activated charcoal</p>
+        <p class="desc">Our darkest bomb, literally — charcoal draws things out while lavender talks you down.</p>
+        <div class="price">$10</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <h2>Made on a stovetop, not in a factory.</h2>
+    <div>
+      <p>Bloomwater started in a kitchen with a mixing bowl, a scale, and four scents that kept getting requested by name. Every bomb is pressed by hand in small batches — usually no more than 40 at a time — so the fizz stays consistent and the color never goes muddy.</p>
+      <p>No mineral oil, no synthetic glitter, no dye that stains the tub. Just citric acid, baking soda, skin-safe color, and whatever's doing the scent that week.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Bloomwater</span>
+    <span>Made by hand, in small batches</span>
+  </div>
+</footer>
+
+</body>
+</html>
